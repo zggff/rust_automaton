@@ -1,0 +1,18 @@
+[package]
+name = "automaton"
+version = "0.1.0"
+edition = "2021"
+default-run = "automaton"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+proc-macro = true
+
+[dependencies]
+druid = { git = "https://github.com/linebender/druid", version = "0.8.3" }
+quote = "1.0.29"
+syn = "2.0.23"
+
+
+
