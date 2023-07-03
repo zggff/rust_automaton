@@ -109,12 +109,6 @@ where
         _env: &Env,
     ) -> Size {
         bc.max()
-        // if bc.is_width_bounded() && bc.is_height_bounded() {
-        //     bc.max()
-        // } else {
-        //     let size = Size::new(100.0, 100.0);
-        //     bc.constrain(size)
-        // }
     }
     fn paint(&mut self, ctx: &mut PaintCtx, data: &AppState<T>, _env: &Env) {
         for x in 0..WIDTH {

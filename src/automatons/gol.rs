@@ -1,5 +1,5 @@
 use std::fmt::Debug;
-use automaton::StateEnum;
+use rustomaton::StateEnum;
 use druid::Color;
 use crate::state::{StateEnum, EnumSize, State};
 
