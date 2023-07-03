@@ -12,7 +12,7 @@ use grid_display::{AppState, GridDisplay};
 use state::State;
 
 const WIDGET_WIDTH: usize = 600;
-const WIDTH: usize = 100;
+const WIDTH: usize = 30;
 const HEIGHT: usize = WIDTH;
 const CELL_SIZE: f64 = WIDGET_WIDTH as f64 / WIDTH as f64;
 

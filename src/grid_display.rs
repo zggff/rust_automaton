@@ -53,19 +53,14 @@ where
     fn event(&mut self, ctx: &mut EventCtx, event: &Event, data: &mut AppState<T>, _env: &Env) {
         match event {
             Event::WindowConnected => ctx.set_focus(ctx.widget_id()),
-            Event::MouseMove(MouseEvent { pos,buttons, ..}) => {
+            Event::MouseMove(MouseEvent { pos,buttons, ..}) | Event::MouseDown(MouseEvent { pos, buttons, .. }) => {
                 if buttons.has_left() {
-                    let x = (pos.x / CELL_SIZE).floor() as usize;
-                    let y = (pos.y / CELL_SIZE).floor() as usize;
+                    let x = ((pos.x / CELL_SIZE).floor() as usize).min(WIDTH - 1);
+                    let y = ((pos.y / CELL_SIZE).floor() as usize).min(HEIGHT - 1);
+                    
                     data.grid.set(x, y, T::from_usize(data.target));
                     ctx.request_paint();
                 }
-            }
-            Event::MouseDown(MouseEvent { pos, .. }) => {
-                let x = (pos.x / CELL_SIZE).floor() as usize;
-                let y = (pos.y / CELL_SIZE).floor() as usize;
-                    data.grid.set(x, y, T::from_usize(data.target));
-                ctx.request_paint();
 
             }
             Event::Timer(id) => {
@@ -104,7 +99,6 @@ where
             self.timer_id =
                 ctx.request_timer(Duration::from_secs_f64(1.0 / 2.0_f64.powf(data.fps)));
         }
-        ctx.request_paint()
     }
 
     fn layout(
@@ -114,12 +108,13 @@ where
         _data: &AppState<T>,
         _env: &Env,
     ) -> Size {
-        if bc.is_width_bounded() && bc.is_height_bounded() {
-            bc.max()
-        } else {
-            let size = Size::new(100.0, 100.0);
-            bc.constrain(size)
-        }
+        bc.max()
+        // if bc.is_width_bounded() && bc.is_height_bounded() {
+        //     bc.max()
+        // } else {
+        //     let size = Size::new(100.0, 100.0);
+        //     bc.constrain(size)
+        // }
     }
     fn paint(&mut self, ctx: &mut PaintCtx, data: &AppState<T>, _env: &Env) {
         for x in 0..WIDTH {
